@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">TargetCaseStudy</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Credit card validation strings. You do not need to make changes here. -->
+    <string name="credit_card_payment_title">Credit Card Payment</string>
+    <string name="credit_card_payment_subtitle">Note: you do NOT need to enter real data</string>
+
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
+    <string name="credit_card_number_hint">Credit card number</string>
+    <string name="more_text">more</string>
+    <string name="add_to_cart_text">add to cart</string>
+    <string name="add_to_list_text">add to list</string>
+    <string name="or_text">or</string>
+    <string name="ship_text">ship</string>
+    <string name="reg_text">Reg:</string>
+    <string name="close_text">close</string>
+
+    <string name="retry">Retry</string>
+  <string name="internet_error">No internet connection!!</string>
+    <string name="internet_error_message">Please check your internet connection and try again</string>
+
+</resources>

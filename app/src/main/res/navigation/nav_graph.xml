@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home"
+    app:startDestination="@id/dealsListFragment">
+    <fragment
+        android:id="@+id/dealsListFragment"
+        android:name="com.target.targetcasestudy.ui.dealslist.DealListFragment"
+        android:label="ListFragment"
+        tools:layout="@layout/fragment_deal_list">
+        <action
+            android:id="@+id/action_overviewFragment_to_detailFragment"
+            app:destination="@id/dealsDetailsFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/dealsDetailsFragment"
+        android:name="com.target.targetcasestudy.ui.dealdetails.DealDetailsFragment"
+        android:label="DetailFragment"
+        tools:layout="@layout/fragment_deal_details">
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
+</navigation>
