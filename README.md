@@ -2,7 +2,7 @@
  # Overview:
 
 * ### __Model__
-   Model is implemented as Repository pattern. Firstly it begins from internet connection checking. Consequently if it's alive we're retrieving data from the server (by using Retrofit 2).
+  Firstly it begins from internet connection checking. Consequently if it's alive we're retrieving data from the server (by using Retrofit 2).
 * ### __View__
      View is realised as 2 fragments. First one contains RecyclerView, second one depends on clicks on recycler-items and finally displays detailed data fetched from the Model.
     <br/><br/>
@@ -19,45 +19,17 @@
     – AndroidInjector applying for injecting into View components<br/>
     <br/><br/>
 
-
-# Applied technologies and libraries:
-
-
-* ### __Model__
-
-	* ### __Network__<br/>
-	     __Retrofit 2__ <br/>
-		– getting data from server into pojo-classes
-
-	     __okHTTP__ <br/>
-	        – caching data from the server to display the deals offline
-
-   * __Coroutines__ <br/>
-      – managing asynchronous network queries<br/>
-      – using instead of callbacks<br/>
-      – providing light asynchronous operations
-
-* ### __ViewModel__
-   * __LiveData__ <br/>
-      – observer-pattern implementation for View interaction
-
-* ### __View__
-   * __Fragments__ <br/>
-     – interactive displaying and click reflecting
-
-  *  __Data Binding__ <br/>
-    – replace basic operations with UI (e.g. findViewById() ) to the XML
-
 ## All libraries: <br/>
 
 * Android X
-* Material Librarie
+* Material Libraries
 * Android Jetpack
 * Dagger 2
 * Kotlin Coroutines
 * Retrofit 2
 * OkHTTP 3
 * Glide
+* Shimmer
 
 
 # Android Case Study
