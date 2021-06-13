@@ -5,6 +5,7 @@ object Constants {
     const val INTENT_CARD_NUMBER = "card_number"
 
     fun wrapWithHtml(content: String): String {
-        return "<html><head> <pre style=\"word-wrap: break-word; white-space: pre-wrap; font-size:16; -webkit-user-select: none;\" /></head><body>$content</body></html>";
+        return "<html><body ><p align=\"justify\" style=\"font-size: 20px; " +
+                "word-wrap: break-word; white-space: pre-wrap;\">" + content + "</p> " + "</body></style></html>";
     }
 }

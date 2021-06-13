@@ -1,6 +1,8 @@
 package com.target.targetcasestudy.utils
 
+import android.text.TextUtils
 import android.view.View
+import android.webkit.WebView
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
@@ -34,7 +36,7 @@ fun vis(view: View, isNetWorkError: Boolean, dealsList: Any?) {
     }
 }
 
-//Binding adapter used to hide the spinner once data is available.
+//Binding shimmer hide/visible
 @BindingAdapter("isShimmerVisible", "dealsList")
 fun bindShimmerAnimation(view: ShimmerFrameLayout, isNetWorkError: Boolean, dealsList: Any?) {
     if (dealsList != null || isNetWorkError) {
@@ -44,4 +46,10 @@ fun bindShimmerAnimation(view: ShimmerFrameLayout, isNetWorkError: Boolean, deal
         view.visibility = View.VISIBLE
         view.run { startShimmerAnimation() }
     }
+}
+
+//load webview
+@BindingAdapter( "description")
+fun bindWebview(view: WebView,  description: Any?) {
+    view.loadDataWithBaseURL(null, Constants.wrapWithHtml(description.toString()), "text/html", "utf-8", null)
 }

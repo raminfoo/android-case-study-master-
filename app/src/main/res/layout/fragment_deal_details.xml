@@ -126,6 +126,7 @@
                         android:layout_marginRight="@dimen/dimen_6dp"
                         android:layout_marginBottom="@dimen/dimen_12dp"
                         android:scrollbars="none"
+                        app:description='@{viewModel.dealsDetails.description!=null?viewModel.dealsDetails.description:""}'
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

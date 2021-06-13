@@ -51,17 +51,6 @@ class DealDetailsFragment : Fragment() {
             paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         }
 
-
-        viewModel.dealsDetails.observe(viewLifecycleOwner, Observer {
-
-            //Load the description data in webview
-            binding.dealsDescription.loadData(
-                Constants.wrapWithHtml(it.description),
-                "text/html",
-                "UTF-8"
-            )
-        })
-
         viewModel.eventNetworkError.observe(viewLifecycleOwner, Observer {
             if (it) {
                 onNetworkError()

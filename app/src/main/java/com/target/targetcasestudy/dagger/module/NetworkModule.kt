@@ -36,22 +36,26 @@ class NetworkModule(private val application: Application) {
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
-            //.addInterceptor(interceptor)
+            .addInterceptor(interceptor)
             .build()
     }
 
     @Provides
     @Reusable
-    internal fun provideRetrofitInterface(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
-        .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(CoroutineCallAdapterFactory())
-        .baseUrl("https://api.target.com/mobile_case_study_deals/v1/")
-        .client(okHttpClient)
-        .build()
+    internal fun provideRetrofitInterface(okHttpClient: OkHttpClient): Retrofit {
+       return Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .baseUrl("https://api.target.com/mobile_case_study_deals/v1/")
+            .client(okHttpClient)
+            .build()
+    }
 
     @Provides
     @Reusable
-    internal fun provideDealsListApi(retrofit: Retrofit): DealsAPI = retrofit.create(DealsAPI::class.java)
+    internal fun provideDealsApi(retrofit: Retrofit): DealsAPI{
+        return retrofit.create(DealsAPI::class.java)
+    }
 
     @Provides
     @Singleton
