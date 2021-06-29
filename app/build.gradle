@@ -87,4 +87,13 @@ dependencies {
     def shimmer_version = '0.1.0@aar'
     implementation "com.facebook.shimmer:shimmer:$shimmer_version"
 
+
+    /*TESTING LIB*/
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.2.0';
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.2.0'
+
+    // AndroidX Test - Instrumented testing
+    androidTestImplementation "androidx.test.ext:junit:1.1.2"
 }

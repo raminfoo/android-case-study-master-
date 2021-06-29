@@ -18,18 +18,16 @@ import com.target.targetcasestudy.databinding.FragmentDealListBinding
 import com.target.targetcasestudy.network.data.DealsListData
 import com.target.targetcasestudy.ui.DealItemAdapter
 import com.target.targetcasestudy.ui.DealsListener
+import com.target.targetcasestudy.utils.BaseFragment
 import javax.inject.Inject
 
-class DealListFragment : Fragment() {
+class DealListFragment : BaseFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
     lateinit var viewModel: DealsListViewModel
     lateinit var binding: FragmentDealListBinding
-
-    private var errorSnackbar: Snackbar? = null
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,25 +47,13 @@ class DealListFragment : Fragment() {
 
         viewModel.eventNetworkError.observe(viewLifecycleOwner, Observer {
             if (it) {
-                onNetworkError()
+                onNetworkError(binding.root, viewModel)
             }
         })
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         super.onViewCreated(view, savedInstanceState)
-    }
-
-    //Function will show a toast when there is no internet
-    private fun onNetworkError() {
-        errorSnackbar = Snackbar.make(
-            binding.root,
-            getString(R.string.internet_error),
-            Snackbar.LENGTH_INDEFINITE
-        )
-        errorSnackbar?.setActionTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-        errorSnackbar?.setAction(R.string.retry) { viewModel.errorClickListener() }
-        errorSnackbar?.show()
     }
 
     private fun bindAdapter(it: List<DealsListData.Product>) {

@@ -64,9 +64,9 @@ class PaymentDialogFragment : DialogFragment(), View.OnClickListener {
     }
 
     private fun bindExistingCardNumber() {
-        var cardString = sharedPrefsHelper.get(Constants.INTENT_CARD_NUMBER, "")
+        var cardString = sharedPrefsHelper[Constants.INTENT_CARD_NUMBER, ""]
         if (!TextUtils.isEmpty(cardString)) {
-            binding.cardData = CardDetails(cardString, "")
+            binding.cardData = CardDetails(cardString!!, "")
         }
     }
 

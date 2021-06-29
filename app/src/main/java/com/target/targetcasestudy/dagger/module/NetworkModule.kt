@@ -3,30 +3,29 @@ package com.target.targetcasestudy.dagger.module
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.ConnectivityManager
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.target.targetcasestudy.network.DealsAPI
-import com.target.targetcasestudy.utils.SharedPrefsHelper.PREF_FILE_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
-import okhttp3.Cache
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
+import okhttp3.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
+import java.io.IOException
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+
 @Module
 class NetworkModule(private val application: Application) {
+    var PREF_FILE_NAME = "target"
 
     @Provides
     @Reusable
     internal fun provideOkHttpClient(): OkHttpClient {
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BASIC
 
         val cacheDir = File(application.cacheDir, UUID.randomUUID().toString())
         // 15 MiB cache
@@ -36,8 +35,43 @@ class NetworkModule(private val application: Application) {
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
-            .addInterceptor(interceptor)
+            .addInterceptor(offlineInterceptor)
+            .addNetworkInterceptor(onlineInterceptor)
             .build()
+    }
+
+    var onlineInterceptor: Interceptor = object : Interceptor {
+        @Throws(IOException::class)
+        override fun intercept(chain: Interceptor.Chain): Response {
+            val response: Response = chain.proceed(chain.request())
+            val maxAge = 60 // read from cache for 60 seconds even if there is internet connection
+            return response.newBuilder()
+                .header("Cache-Control", "public, max-age=$maxAge")
+                .removeHeader("Pragma")
+                .build()
+        }
+    }
+
+    var offlineInterceptor: Interceptor = object : Interceptor {
+        @Throws(IOException::class)
+        override fun intercept(chain: Interceptor.Chain): Response {
+            var request: Request = chain.request()
+            if (!isNetworkAvailable()) {
+                val maxStale = 60 * 60 * 24 * 30 // Offline cache available for 30 days
+                request = request.newBuilder()
+                    .header("Cache-Control", "public, only-if-cached, max-stale=$maxStale")
+                    .removeHeader("Pragma")
+                    .build()
+            }
+            return chain.proceed(request)
+        }
+    }
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager =
+            application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        val activeNetworkInfo = connectivityManager!!.activeNetworkInfo
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected
     }
 
     @Provides
